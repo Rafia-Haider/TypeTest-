@@ -135,6 +135,11 @@ body{
 
 .result .content{
     position: absolute;
+    top:30%;
+    left:50%;
+    transform: translate(-50%, -30%);
+    max-width: 90%;
+    min-width: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
