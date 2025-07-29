@@ -125,13 +125,12 @@ body{
 
 .result{
     position: fixed;
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.1);
-    width: 100vw;
-    height: 100vh;
     z-index: 2;
+    inset: 0;
 }
 
 .result .content{
