@@ -10,19 +10,49 @@ let timeButton = document.querySelectorAll(".timeDuration button");
 
 let time = 60;
 
-let wordBox = document.querySelector(".quote-box h5")
+let wordBox = document.querySelector(".quote-box")
 
+let correctWords = 0;
+
+let  incorrrectWords = 0;
+
+let wordNumber = 0;
+
+let wordSpanList= [];
+
+let wordList = [];
+
+let currentWord = wordList[0];
 //TIMER START
 
-input.addEventListener("keydown", () => {
+input.addEventListener("keydown", (event) => {
+    if(!wordList) return;
+
     if (!start) {
         console.log("key pressed");
         startTimer(time);
     }
     start = true;
+    if (event.key == " ") {
+        currentWord = wordList[wordNumber];
+        if (input.value.trim() == currentWord) {
+            correctWords++;
+            console.log("correct");
+        }
+        else{
+            incorrrectWords++;
+            console.log("incorrect");
+        }
+       
+        input.value = "";
+        wordSpanList[wordNumber].classList.remove("currentWord");
+        wordNumber++;
+        wordSpanList[wordNumber].classList.add("currentWord");
+        console.log(currentWord);
+    }
 })
 
-// USING SET INTERVAL TO GO ONE SECOND FORWARD(OR BACKWARD;) AND UPDATING TIME 
+// USING SET INTERVAL TO GO ONE SECOND FORWARD(OR BACKWARD;)) AND UPDATING TIME 
 
 function startTimer(time) {
     let intervald = setInterval(() => {
@@ -38,6 +68,7 @@ function startTimer(time) {
         if (time == 0) {
             clearInterval(intervald);
             result.style.display = "flex";
+            input.disabled = "true";
         }
     }, 1000);
 }
@@ -64,13 +95,18 @@ timeButton.forEach(element => {
 
 // FECTHING WORDS TO PUT IN THE BOX
 
-let wordList = [];
 
 fetch("https://random-word-api.vercel.app/api?words=50")
     .then(res => res.json())
     .then(data => {
         wordList = data;
-        wordBox.textContent = wordList.join(" ");
+        wordList.forEach(element => {
+            let wordSpan = document.createElement("span");
+            wordSpan.textContent = element;
+            wordBox.appendChild(wordSpan);
+        });
+        wordSpanList = document.querySelectorAll(".quote-box span");
+        wordSpanList[0].classList.add("currentWord");
     })
     .catch(err => {
         console.warn("API FAILED! using backup local list.", err);
@@ -82,6 +118,8 @@ fetch("https://random-word-api.vercel.app/api?words=50")
             "whistle", "holiday", "notebook", "whisper", "blanket", "lantern", "scooter", "drizzle", "wallet", "poster",
             "fortune", "traffic", "journal", "trophy", "message", "satchel", "horizon", "shampoo", "curtain", "luggage"
         ];
-        wordBox.textContent = wordList.join(" ");
     }
     )
+
+
+

@@ -66,11 +66,18 @@ body {
     overflow-y: hidden;
 }
 
-.quote-box h5 {
+.quote-box span {
     font-weight: 500;
     font-size: 1.5rem;
     color: white;
-    font-family: monospace;
+    font-family: Courier, monospace;
+    margin-right: 15px;
+}
+
+.currentWord {
+    background-color:#525252;
+    padding: 3px;
+    border-radius:3px;
 }
 
 .input-box {
@@ -187,6 +194,8 @@ body {
     cursor: pointer;
 }
 
+
+
 @media (max-width: 1024px) {
     .header {
         margin: 5px 0 10px;
@@ -246,5 +255,4 @@ body {
         right: 9px;
         top: 7px;
     }
-
 }
